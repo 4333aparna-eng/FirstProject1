@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: geosense-backend
+  labels:
+    app: geosense
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: geosense
+  template:
+    metadata:
+      labels:
+        app: geosense
+    spec:
+      containers:
+        - name: backend
+          image: geosense-backend:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: geosense-db-secret
+                  key: database-url
+            - name: TOMTOM_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: geosense-tomtom-secret
+                  key: tomtom-api-key
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+      imagePullSecrets:
+        - name: regcred

@@ -1,0 +1,5 @@
+# The traffic_predictor.pkl file is a binary file that contains a trained machine learning model. 
+# As such, it cannot be represented as text. 
+# You will need to generate this file using a machine learning framework like scikit-learn or TensorFlow 
+# and save the trained model to this path using the appropriate method. 
+# Please refer to your model training script to create this file.
